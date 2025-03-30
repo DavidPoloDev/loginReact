@@ -1,0 +1,72 @@
+/* signin.css */
+.signin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.signin-form {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos horizontalmente */
+}
+
+.signin-form .header-image {
+    max-width: 200px;
+    margin-bottom: 30px;
+    display: block;
+    /* centrar la imagen */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signin-form h2 {
+    text-align: center;
+    color: var(--primary-color, #4b2e2e);
+    margin-bottom: 20px;
+    width: 100%; 
+}
+
+.signin-form input {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.signin-form button {
+    background-color: var(--primary-color, #4b2e2e);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.signin-form button:hover {
+    background-color: var(--primary-light, #5D4343);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+    .signin-form {
+        padding: 20px;
+        width: 95%;
+    }
+}
