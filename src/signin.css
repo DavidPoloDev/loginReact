@@ -1,43 +1,59 @@
-/* signin.css */
-.signin-container {
+/* signin.css - versión completa actualizada */
+:root {
+    --primary-color: #4b2e2e;
+    --primary-light: #5D4343;
+    --background-color: #f4f4f4;
+ }
+ 
+ .signin-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     padding: 20px;
-    background-color: #f4f4f4;
-}
-
-.signin-form {
+    background-color: var(--background-color);
+ }
+ 
+ .header-image {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+ }
+ 
+ /* Contenedor de formularios */
+ .forms-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+ }
+ 
+ /* Estilos para los formularios */
+ .signin-form, .signup-form {
     background-color: white;
-    padding: 40px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra los elementos horizontalmente */
-}
-
-.signin-form .header-image {
-    max-width: 200px;
-    margin-bottom: 30px;
-    display: block;
-    /* centrar la imagen */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.signin-form h2 {
-    text-align: center;
-    color: var(--primary-color, #4b2e2e);
+    align-items: center;
     margin-bottom: 20px;
-    width: 100%; 
-}
-
-.signin-form input {
+ }
+ 
+ .signin-form h2, .signup-form h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    width: 100%;
+    font-size: 1.5rem;
+ }
+ 
+ .signin-form input, .signup-form input {
     margin-bottom: 15px;
     padding: 12px;
     border: 1px solid #ddd;
@@ -45,10 +61,10 @@
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
-}
-
-.signin-form button {
-    background-color: var(--primary-color, #4b2e2e);
+ }
+ 
+ .signin-form button, .signup-form button {
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 12px;
@@ -57,16 +73,132 @@
     transition: background-color 0.3s;
     margin-top: 10px;
     width: 100%;
-}
-
-.signin-form button:hover {
-    background-color: var(--primary-light, #5D4343);
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 600px) {
-    .signin-form {
+ }
+ 
+ .signin-form button:hover, .signup-form button:hover {
+    background-color: var(--primary-light);
+ }
+ 
+ /* Estilos para el contenedor de la tabla de usuarios */
+ .table-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px; /* Aumentado para dar más espacio */
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto; /* Permite scroll horizontal si es necesario */
+ }
+ 
+ .table-container h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    width: 100%;
+    font-size: 1.5rem;
+ }
+ 
+ /* Estilos para la tabla de usuarios */
+ .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 4px;
+    overflow: hidden;
+    table-layout: fixed; /* Controla el ancho de las columnas */
+ }
+ 
+ .users-table th,
+ .users-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    word-break: break-all; /* Permite que el texto largo se rompa */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es demasiado largo */
+ }
+ 
+ .users-table th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+ }
+ 
+ /* Ancho específico para cada columna */
+ .users-table th:nth-child(1), 
+ .users-table td:nth-child(1) {
+    width: 10%; /* ID */
+ }
+ 
+ .users-table th:nth-child(2), 
+ .users-table td:nth-child(2) {
+    width: 30%; /* Email */
+ }
+ 
+ .users-table th:nth-child(3), 
+ .users-table td:nth-child(3) {
+    width: 50%; /* Password - más ancho para contraseñas largas */
+ }
+ 
+ .users-table th:nth-child(4), 
+ .users-table td:nth-child(4) {
+    width: 10%; /* Opciones */
+ }
+ 
+ .users-table tr:last-child td {
+    border-bottom: none;
+ }
+ 
+ .users-table tr:hover {
+    background-color: #f5f5f5;
+ }
+ 
+ /* Estilos para el mensaje de no hay usuarios */
+ .users-table td[colspan="4"] {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+ }
+ 
+ /* Para el botón de eliminar */
+ .users-table button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+ }
+ 
+ .users-table button:hover {
+    background-color: var(--primary-light);
+ }
+ 
+ /* Media queries */
+ @media screen and (max-width: 800px) {
+    .table-container {
+        max-width: 95%;
+        padding: 20px;
+    }
+ }
+ 
+ @media screen and (max-width: 600px) {
+    .signin-form, .signup-form {
         padding: 20px;
         width: 95%;
     }
-}
+    
+    .header-image {
+        max-width: 100px;
+    }
+    
+    .users-table th, 
+    .users-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+ }

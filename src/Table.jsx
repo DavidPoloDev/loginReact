@@ -1,62 +1,76 @@
-import React from 'react'; // Importamos React para crear el componente
-import { Link } from 'react-router-dom'; // Importamos Link para la navegación entre páginas
-import './table.css'; // Importamos los estilos CSS específicos
-import { useSampleManager } from './hooks/useSampleManager'; // Importamos nuestro hook personalizado
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './table.css';
+import { useSampleManager } from './hooks/useSampleManager';
 
-// Componente de tabla para gestionar las muestras de café
 const Table = () => {
-  // Usamos desestructuración para obtener todas las funciones y estados del hook useSampleManager
+  const navigate = useNavigate();
+  
+  // Función para cerrar sesión
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/logout', {
+        credentials: 'include'
+      });
+      
+      if (response.ok) {
+        // Si la sesión se cerró correctamente, navegar al login
+        navigate('/', { replace: true });
+      } else {
+        console.error("Error al cerrar sesión");
+      }
+    } catch (error) {
+      console.error("Error de conexión:", error);
+    }
+  };
+
   const {
-    filteredSamples, // Muestras filtradas (por búsqueda)
-    modalOpen,       // Estado para controlar si el modal está abierto
-    form,            // Estado del formulario (añadir/editar)
-    handleSearch,    // Función para búsqueda
-    handleChange,    // Función para cambios en el formulario
-    handleSubmit,    // Función para enviar el formulario
-    openModal,       // Función para abrir el modal
-    closeModal,      // Función para cerrar el modal
-    deleteSample,    // Función para eliminar una muestra
-    generatePDF      // Función para generar un PDF
+    filteredSamples,
+    modalOpen,
+    form,
+    handleSearch,
+    handleChange,
+    handleSubmit,
+    openModal,
+    closeModal,
+    deleteSample,
+    generatePDF
   } = useSampleManager();
 
-  // Estructura del componente
   return (
-    // Contenedor principal
-    <div className="table-container">
-      <div className="table-content">
+    <div className="sample-table-container">
+      <div className="sample-table-content">
         {/* Cabecera de la tabla con logo y botones de navegación */}
-        <div className="table-header">
+        <div className="sample-table-header">
           {/* Logo y título */}
-          <div className="table-logo">
+          <div className="sample-table-logo">
             <img src="/img/logo_coffee_background.png" alt="QC Master Logo" />
             <h3>Sample Manager</h3>
           </div>
           {/* Enlaces de navegación */}
-          <div className="table-navigation">
-            <Link to="/signin" className="nav-button">Sign In</Link>
-            <Link to="/signup" className="nav-button">Sign Up</Link>
+          <div className="sample-table-navigation">
+            <button onClick={handleLogout} className="nav-button">Logout</button>
           </div>
         </div>
 
         {/* Barra de búsqueda */}
-        <div className="table-search-bar">
+        <div className="sample-table-search-bar">
           <input 
             type="text" 
             placeholder="Search samples" 
-            onChange={e => handleSearch(e.target.value)} // Ejecuta la búsqueda al escribir
+            onChange={e => handleSearch(e.target.value)}
           />
           <button className="search-btn">Search</button>
         </div>
 
         {/* Botones de acción principales */}
-        <div className="table-actions">
+        <div className="sample-table-actions">
           <button className="btn btn-pdf" onClick={generatePDF}>Generate PDF Report</button>
           <button className="btn btn-add" onClick={() => openModal('add')}>Add samples</button>
         </div>
 
         {/* Tabla de muestras */}
-        <table className="table-data">
-          {/* Encabezados de la tabla */}
+        <table className="sample-table-data">
           <thead>
             <tr>
               <th>ID</th>
@@ -67,9 +81,7 @@ const Table = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          {/* Cuerpo de la tabla con los datos */}
           <tbody>
-            {/* Mapeo de las muestras filtradas para crear filas */}
             {filteredSamples.map((sample, index) => (
               <tr key={index}>
                 <td>{sample.id}</td>
@@ -77,17 +89,16 @@ const Table = () => {
                 <td>{sample.origin}</td>
                 <td>{sample.date}</td>
                 <td>{sample.time}</td>
-                {/* Columna de acciones (editar/eliminar) */}
                 <td>
                   <button 
                     className="btn btn-edit" 
-                    onClick={() => openModal('edit', index)} // Abre modal para editar esta muestra
+                    onClick={() => openModal('edit', index)}
                   >
                     Edit
                   </button>
                   <button 
                     className="btn btn-delete" 
-                    onClick={() => deleteSample(index)} // Elimina esta muestra
+                    onClick={() => deleteSample(index)}
                   >
                     Delete
                   </button>
@@ -97,17 +108,13 @@ const Table = () => {
           </tbody>
         </table>
 
-        {/* Modal para añadir/editar muestras (solo se muestra cuando modalOpen es true) */}
+        {/* Modal para añadir/editar muestras */}
         {modalOpen && (
-          <div className="table-modal">
+          <div className="sample-table-modal">
             <div className="modal-content">
-              {/* Botón para cerrar el modal */}
               <span className="btn-close" onClick={closeModal}>&times;</span>
-              {/* Título dinámico según sea añadir o editar */}
               <h2>{form.id ? 'Edit Sample' : 'Add Sample'}</h2>
-              {/* Formulario para añadir/editar muestra */}
               <form onSubmit={handleSubmit}>
-                {/* Campo para ID */}
                 <label htmlFor="id">ID:</label>
                 <input 
                   type="text" 
@@ -117,7 +124,6 @@ const Table = () => {
                   required 
                 />
 
-                {/* Selector para Calidad */}
                 <label htmlFor="quality">Quality:</label>
                 <select 
                   id="quality" 
@@ -133,7 +139,6 @@ const Table = () => {
                   <option value="Castillo">Castillo</option>
                 </select>
 
-                {/* Selector para Origen */}
                 <label htmlFor="origin">Origin:</label>
                 <select 
                   id="origin" 
@@ -149,7 +154,6 @@ const Table = () => {
                   <option value="Costa Rica">Costa Rica</option>
                 </select>
 
-                {/* Campo para Fecha de catación */}
                 <label htmlFor="date">Tasting Date:</label>
                 <input 
                   type="date" 
@@ -159,7 +163,6 @@ const Table = () => {
                   required 
                 />
 
-                {/* Campo para Hora de catación */}
                 <label htmlFor="time">Tasting Time:</label>
                 <input 
                   type="time" 
@@ -169,7 +172,6 @@ const Table = () => {
                   required 
                 />
 
-                {/* Botón para guardar los cambios */}
                 <button type="submit" className="btn btn-add">
                   Save
                 </button>
@@ -182,5 +184,4 @@ const Table = () => {
   );
 };
 
-// Exportamos el componente para usarlo en otras partes de la aplicación
 export default Table;
