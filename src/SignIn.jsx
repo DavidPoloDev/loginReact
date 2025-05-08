@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './signin.css';
 
+
 const SignIn = () => {
   const navigate = useNavigate();
   
@@ -19,7 +20,7 @@ const SignIn = () => {
 
     try {
       const request = await fetch(
-        `http://localhost:3000/login?correo_electronico=${encodeURIComponent(form.correo_electronico)}&contraseña=${encodeURIComponent(form.contraseña)}`,
+        `https://loginexpress-production-1f75.up.railway.app/login?correo_electronico=${encodeURIComponent(form.correo_electronico)}&contraseña=${encodeURIComponent(form.contraseña)}`,
         {credentials: 'include'}
       );
       

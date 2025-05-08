@@ -19,7 +19,7 @@ const SignUp = () => {
     
     try {
       const request = await fetch(
-        `http://localhost:3000/register?correo_electronico=${encodeURIComponent(formSignUp.correo_electronico)}&contraseña=${encodeURIComponent(formSignUp.contraseña)}`
+        `https://loginexpress-production-1f75.up.railway.app/register?correo_electronico=${encodeURIComponent(formSignUp.correo_electronico)}&contraseña=${encodeURIComponent(formSignUp.contraseña)}`
       );
       
       if (request.ok) {

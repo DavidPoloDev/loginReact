@@ -3,15 +3,25 @@ import { Link, useNavigate } from 'react-router-dom';
 import './table.css';
 import { useSampleManager } from './hooks/useSampleManager';
 
+
+
+
+
 const Table = () => {
   const navigate = useNavigate();
+
+  const goToSignUP = () => {
+    navigate('/signup', { replace: true });
+  };
   
   // Función para cerrar sesión
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:3000/logout', {
+      const response = await fetch('https://loginexpress-production-1f75.up.railway.app/logout', {
         credentials: 'include'
       });
+      
+
       
       if (response.ok) {
         // Si la sesión se cerró correctamente, navegar al login
@@ -50,6 +60,7 @@ const Table = () => {
           {/* Enlaces de navegación */}
           <div className="sample-table-navigation">
             <button onClick={handleLogout} className="nav-button">Logout</button>
+            <button onClick={goToSignUP} className="nav-button">Back</button>
           </div>
         </div>
 
@@ -113,9 +124,10 @@ const Table = () => {
           <div className="sample-table-modal">
             <div className="modal-content">
               <span className="btn-close" onClick={closeModal}>&times;</span>
-              <h2>{form.id ? 'Edit Sample' : 'Add Sample'}</h2>
+              <h2 style={{marginBottom: '5px' }} >{form.id ? 'Edit Sample' : 'Add Sample'}</h2>
+              <p style={{marginTop:'0px',fontSize:'0.8em',color:'red', fontStyle:'italic'}}>Todos los campos son obligatorios</p>
               <form onSubmit={handleSubmit}>
-                <label htmlFor="id">ID:</label>
+                <label htmlFor="id">ID <span style={{color:'red'}}>*</span></label>
                 <input 
                   type="text" 
                   id="id" 
@@ -124,7 +136,7 @@ const Table = () => {
                   required 
                 />
 
-                <label htmlFor="quality">Quality:</label>
+                <label htmlFor="quality">Quality <span style={{color:'red'}}>*</span> </label>
                 <select 
                   id="quality" 
                   value={form.quality} 
@@ -139,7 +151,7 @@ const Table = () => {
                   <option value="Castillo">Castillo</option>
                 </select>
 
-                <label htmlFor="origin">Origin:</label>
+                <label htmlFor="origin">Origin <span style={{color:'red'}}>*</span> </label>
                 <select 
                   id="origin" 
                   value={form.origin} 
@@ -154,7 +166,7 @@ const Table = () => {
                   <option value="Costa Rica">Costa Rica</option>
                 </select>
 
-                <label htmlFor="date">Tasting Date:</label>
+                <label htmlFor="date">Tasting Date <span style={{color:'red'}}>*</span> </label>
                 <input 
                   type="date" 
                   id="date" 
@@ -163,7 +175,7 @@ const Table = () => {
                   required 
                 />
 
-                <label htmlFor="time">Tasting Time:</label>
+                <label htmlFor="time">Tasting Time <span style={{color:'red'}}>*</span> </label>
                 <input 
                   type="time" 
                   id="time" 

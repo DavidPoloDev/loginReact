@@ -11,7 +11,7 @@ const Usuarios = () => {
   // Actualizar tabla de usuarios
   async function getUsers() {
     try {
-      const request = await fetch('http://localhost:3000/usuarios', {
+      const request = await fetch('https://loginexpress-production-1f75.up.railway.app/usuarios', {
         credentials: 'include'
       });
       
@@ -29,7 +29,7 @@ const Usuarios = () => {
 
   async function deleteUser(id) {
     try {
-      const request = await fetch('http://localhost:3000/usuarios?id='+id, {
+      const request = await fetch('https://loginexpress-production-1f75.up.railway.app/usuarios?id='+id, {
         credentials: 'include', 
         method: 'DELETE'
       });
@@ -47,7 +47,7 @@ const Usuarios = () => {
   useEffect(() => {
     async function checkAuth() {
       try {
-        const request = await fetch('http://localhost:3000/validate', {
+        const request = await fetch('https://loginexpress-production-1f75.up.railway.app/validate', {
           credentials: 'include'
         });
         
